@@ -3,6 +3,20 @@ const router = express.Router();
 // const router = require('express').Router();
 const Projects = require('../data/helpers/projectModel.js');
 
+router.get('/', (req, res) => {
+  Projects
+    .get()
+    .then(project => {
+      res.status(200).json(project);
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({
+        message: 'Error retrieving the Projects',
+      });
+    });
+});
+
 router.get('/:id', (req, res, next) => {
   Projects
     .get(req.params.id)
