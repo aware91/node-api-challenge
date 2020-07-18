@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router();
 // const router = require('express').Router();
 const Projects = require('../data/helpers/projectModel.js');
+const { route } = require('./actionRouter.js');
 
 router.get('/', (req, res) => {
   Projects
@@ -30,6 +31,20 @@ router.get('/:id', (req, res, next) => {
       })
     })
 })
+
+// route.get('/:projectId', (req, res) => {
+//   Projects
+//     .getProjectActions(req.params.projectId)
+//     .then(project=> {
+//       res.status(200).json(project)
+//     })
+//     .catch(err => {
+//       console.log(err);
+//       res.status(500).json({
+//         message: 'Error retrieving the Projects.'
+//       })
+//     })
+// })
 
 router.post('/', (req, res)=>{
   Projects
