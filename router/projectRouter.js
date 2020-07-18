@@ -45,4 +45,34 @@ router.post('/', (req, res)=>{
     });
 })
 
+router.delete('/:id', (req, res) => {
+  Projects
+    .remove(req.params.id)
+    .then(count => {
+      if (count > 0) {
+        res.status(200).json({ message: 'The project has been nuked' });
+      } else {
+        res.status(404).json({ message: 'The project could not be found' });
+      }
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({
+        message: 'Error removing the project',
+      });
+    });
+  });
+
+router.put('/:id', async (req, res) => {
+  const {id} = req.params;
+  try {
+    const updateProject = await Projects.update(id, req.body)
+    res.status(201).json({ data: updateProject})
+  } catch {
+    res.status(500).json({
+      message: 'Error removing the project',
+    });
+  }
+})
+
 module.exports = router;
